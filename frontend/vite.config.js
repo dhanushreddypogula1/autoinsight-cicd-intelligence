@@ -7,7 +7,7 @@ export default defineConfig({
     port: 5173,
     proxy: {
       '/api': {
-        target: 'http://localhost:8080',
+        target: 'https://autoinsight-backend-a2ai.onrender.com',
         changeOrigin: true,
       },
     },

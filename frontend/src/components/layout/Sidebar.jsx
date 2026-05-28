@@ -62,7 +62,7 @@ export default function Sidebar() {
             <span className="w-2 h-2 rounded-full bg-accent-emerald animate-pulse-slow" />
             <span className="text-xs text-slate-400 font-mono">API Connected</span>
           </div>
-          <p className="text-[10px] text-slate-600 font-mono">localhost:8080</p>
+          <p className="text-[10px] text-slate-600 font-mono">https://autoinsight-backend-a2ai.onrender.com</p>
         </div>
       </div>
     </aside>

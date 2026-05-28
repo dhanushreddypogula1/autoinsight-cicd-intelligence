@@ -55,7 +55,7 @@ npm install
 npm run dev
 ```
 
-The Vite dev server proxies `/api` requests to `http://localhost:8080` (the Spring Boot backend).
+The Vite dev server proxies `/api` requests to `https://autoinsight-backend-a2ai.onrender.com` (the Spring Boot backend).
 
 For production builds:
 ```bash
@@ -64,7 +64,7 @@ npm run build
 
 ## Environment / Proxy
 
-The `vite.config.js` proxies all `/api/*` calls to `http://localhost:8080`. If your backend runs on a different port, update `vite.config.js`:
+The `vite.config.js` proxies all `/api/*` calls to `https://autoinsight-backend-a2ai.onrender.com`. If your backend runs on a different port, update `vite.config.js`:
 
 ```js
 proxy: {

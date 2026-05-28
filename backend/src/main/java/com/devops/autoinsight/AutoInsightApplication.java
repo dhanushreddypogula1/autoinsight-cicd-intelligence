@@ -22,7 +22,7 @@ public class AutoInsightApplication {
         SpringApplication.run(AutoInsightApplication.class, args);
         log.info("══════════════════════════════════════════════════");
         log.info("  AutoInsight CI/CD Intelligence Platform Started  ");
-        log.info("  API Base: http://localhost:8080/api              ");
+        log.info("  API Base: https://autoinsight-backend-a2ai.onrender.com/api              ");
         log.info("══════════════════════════════════════════════════");
     }
 }

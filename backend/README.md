@@ -164,13 +164,13 @@ Or run the JAR directly:
 java -jar target/autoinsight-1.0.0.jar
 ```
 
-The application starts on **http://localhost:8080**
+The application starts on **https://autoinsight-backend-a2ai.onrender.com**
 
 ---
 
 ## REST API Reference
 
-### Base URL: `http://localhost:8080/api`
+### Base URL: `https://autoinsight-backend-a2ai.onrender.com/api`
 
 ---
 
@@ -329,27 +329,27 @@ Returns aggregated metrics for the dashboard.
 
 ```bash
 # Upload a log file
-curl -X POST http://localhost:8080/api/logs/upload \
+curl -X POST https://autoinsight-backend-a2ai.onrender.com/api/logs/upload \
   -F "file=@sample-logs/build-failure-sample.txt" \
   -F "pipelineName=backend-ci" \
   -F "branchName=feature/auth"
 
 # Get all incidents
-curl http://localhost:8080/api/incidents | jq
+curl https://autoinsight-backend-a2ai.onrender.com/api/incidents | jq
 
 # Get incident by ID
-curl http://localhost:8080/api/incidents/1 | jq
+curl https://autoinsight-backend-a2ai.onrender.com/api/incidents/1 | jq
 
 # Filter by severity
-curl http://localhost:8080/api/incidents/severity/CRITICAL | jq
+curl https://autoinsight-backend-a2ai.onrender.com/api/incidents/severity/CRITICAL | jq
 
 # Dashboard stats
-curl http://localhost:8080/api/dashboard/stats | jq
+curl https://autoinsight-backend-a2ai.onrender.com/api/dashboard/stats | jq
 ```
 
 ### Using Postman
 
-1. Import the following collection base URL: `http://localhost:8080`
+1. Import the following collection base URL: `https://autoinsight-backend-a2ai.onrender.com`
 2. For upload: Set method to POST, URL to `/api/logs/upload`, Body → form-data → key `file` (type: File)
 3. Select one of the sample log files from the `sample-logs/` directory
 
