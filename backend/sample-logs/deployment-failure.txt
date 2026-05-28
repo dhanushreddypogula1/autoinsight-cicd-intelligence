@@ -1,0 +1,9 @@
+[INFO] Deploying application...
+
+ERROR: Docker container failed to start
+
+Caused by: java.lang.RuntimeException
+
+Kubernetes deployment timeout exceeded
+
+Deployment failed.

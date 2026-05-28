@@ -1,0 +1,51 @@
+=== AutoInsight Sample CI/CD Pipeline Log ===
+Pipeline: payments-service-deploy
+Branch: main
+Triggered by: merge to main
+Build Number: #89
+Agent: ci-agent-01 (Ubuntu 22.04)
+Started at: 2025-03-15 16:45:00 UTC
+==============================================
+
+[2025-03-15 16:45:01] [INFO]  ---- Stage: Build Docker Image ----
+[2025-03-15 16:45:01] [INFO]  Building Docker image: acme/payments-service:v2.4.1
+[2025-03-15 16:45:12] [INFO]  Docker image built successfully.
+
+[2025-03-15 16:45:12] [INFO]  ---- Stage: Push to Registry ----
+[2025-03-15 16:45:12] [INFO]  Pushing acme/payments-service:v2.4.1 to registry.acme.io...
+[2025-03-15 16:45:25] [INFO]  Image pushed to registry successfully.
+
+[2025-03-15 16:45:25] [INFO]  ---- Stage: Deploy to Kubernetes ----
+[2025-03-15 16:45:25] [INFO]  Applying Kubernetes manifests to cluster: prod-cluster-us-east-1
+[2025-03-15 16:45:26] [INFO]  kubectl apply -f k8s/deployment.yaml
+[2025-03-15 16:45:27] [INFO]  deployment.apps/payments-service configured
+[2025-03-15 16:45:27] [INFO]  Waiting for rollout to complete (timeout: 120s)...
+[2025-03-15 16:45:35] [WARN]  Pod payments-service-6d9f8b7c4-xkp2l is Pending (ContainerCreating)
+[2025-03-15 16:45:48] [WARN]  Pod payments-service-6d9f8b7c4-xkp2l is Pending (Initializing 0/1)
+[2025-03-15 16:46:05] [ERROR] Pod payments-service-6d9f8b7c4-xkp2l is in CrashLoopBackOff state
+[2025-03-15 16:46:05] [ERROR] Container exit code: 137
+[2025-03-15 16:46:06] [INFO]  Fetching container logs (last 50 lines):
+[2025-03-15 16:46:06] [INFO]  > payments-service: Starting PaymentsServiceApplication...
+[2025-03-15 16:46:06] [INFO]  > Initializing Spring ApplicationContext...
+[2025-03-15 16:46:07] [ERROR] java.lang.OutOfMemoryError: Java heap space
+[2025-03-15 16:46:07] [ERROR]     at java.util.Arrays.copyOf(Arrays.java:3512)
+[2025-03-15 16:46:07] [ERROR]     at java.util.ArrayList.grow(ArrayList.java:265)
+[2025-03-15 16:46:07] [ERROR]     at com.acme.payments.service.TransactionCacheLoader.loadAll(TransactionCacheLoader.java:87)
+[2025-03-15 16:46:07] [ERROR]     at org.springframework.cache.caffeine.CaffeineCache.get(CaffeineCache.java:112)
+[2025-03-15 16:46:07] [ERROR] OutOfMemoryError: Java heap space — container killed by OOM killer
+[2025-03-15 16:46:07] [ERROR] Container memory limit exceeded: 512Mi requested, 512Mi limit
+[2025-03-15 16:46:08] [INFO]  Kubernetes attempted 3 restarts — pod remains in CrashLoopBackOff
+[2025-03-15 16:46:08] [ERROR] kubectl rollout status failed: deployment "payments-service" exceeded its progress deadline
+[2025-03-15 16:46:08] [ERROR] DEPLOYMENT FAILURE — rolling back to previous version
+[2025-03-15 16:46:09] [INFO]  Rolling back to acme/payments-service:v2.4.0...
+[2025-03-15 16:46:11] [INFO]  Rollback completed. Serving v2.4.0.
+
+=== Deployment Summary ===
+Target Cluster:     prod-cluster-us-east-1
+Image:              acme/payments-service:v2.4.1
+Kubernetes Status:  CrashLoopBackOff
+Root Cause:         OutOfMemoryError on startup
+Rollback:           Success (v2.4.0)
+Duration:           00:01:09
+Exit Code:          1
+=========================

@@ -1,0 +1,8 @@
+Running unit tests...
+
+Tests run: 124
+Failures: 12
+
+AssertionError at UserServiceTest.java:45
+
+Build marked as failed.

@@ -1,0 +1,5 @@
+java.lang.OutOfMemoryError: Java heap space
+
+Application crashed during processing.
+
+Critical memory failure detected.
