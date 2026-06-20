@@ -43,6 +43,13 @@ export const getIncidentsBySeverity = async (level) => {
   return data.data
 }
 
+export const deleteIncident = async (id) => {
+  const { data } = await api.delete(`/incidents/${id}`)
+  return data
+}
+
+
+
 // ─── Logs ────────────────────────────────────────────────────────────────────
 
 export const uploadLog = async ({ file, pipelineName, branchName }, onProgress) => {
