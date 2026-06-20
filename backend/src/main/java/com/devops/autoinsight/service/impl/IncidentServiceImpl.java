@@ -53,6 +53,17 @@ public class IncidentServiceImpl implements IncidentService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    @Transactional
+    public void deleteIncident(Long id) {
+        log.info("Deleting incident with ID:{}",id);
+        
+        Incident incident = incidentRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Incident", id));    
+        incidentRepository.delete(incident);
+        
+        log.info("Incident with ID:{} deleted successfully",id);
+    }
     // ── Mapping ───────────────────────────────────────────────────────────────
 
     private IncidentResponse toResponse(Incident incident) {

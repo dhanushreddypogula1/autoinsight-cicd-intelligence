@@ -15,4 +15,6 @@ public interface IncidentService {
     IncidentResponse getIncidentById(Long id);
 
     List<IncidentResponse> getIncidentsBySeverity(String severityLevel);
+
+    void deleteIncident(Long id);
 }

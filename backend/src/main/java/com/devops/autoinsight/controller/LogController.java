@@ -4,7 +4,6 @@ import com.devops.autoinsight.dto.request.LogUploadRequest;
 import com.devops.autoinsight.dto.response.ApiResponse;
 import com.devops.autoinsight.dto.response.LogUploadResponse;
 import com.devops.autoinsight.service.LogService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

@@ -56,6 +56,21 @@ public class IncidentController {
         return ResponseEntity.ok(ApiResponse.success(incident));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ApiResponse<String>> deleteIncident(@PathVariable Long id) {
+        log.info("DELETE /api/incidents/{} - deleting incident", id);
+
+
+        incidentService.deleteIncident(id);
+
+        return ResponseEntity.ok(
+            ApiResponse.success("Incident deleted successfully")
+     );
+
+
+    }
+
+
     /**
      * GET /api/incidents/severity/{level}
      *
