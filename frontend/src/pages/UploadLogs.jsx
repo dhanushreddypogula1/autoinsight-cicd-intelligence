@@ -178,6 +178,22 @@ export default function UploadLogs() {
           subtitle="Supports .txt log files up to 10 MB"
         />
 
+        <div className="mb-4 rounded-xl border border-yellow-500/30 bg-yellow-500/10 p-4">
+          <div className="flex items-start gap-3">
+            <AlertCircle size={18} className="text-yellow-400 mt-0.5 shrink-0" />
+            <div>
+              <p className="text-sm font-medium text-yellow-300">
+                Demo Environment Notice
+              </p>
+              <p className="text-xs text-yellow-200 mt-1">
+                AutoInsight AI is currently hosted on Render's free-tier infrastructure.
+                If the backend has been idle, the first request may take approximately
+                2–5 minutes while services wake up. Subsequent requests will respond normally.
+              </p>
+            </div>
+          </div>
+        </div>
+
         <div className="space-y-4">
           <FileDropzone file={file} onFile={setFile} onClear={handleClear} />
 
