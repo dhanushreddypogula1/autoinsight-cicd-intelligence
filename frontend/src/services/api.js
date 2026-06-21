@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const api = axios.create({
   baseURL: 'https://autoinsight-backend-a2ai.onrender.com/api',
-  timeout: 30000,
+  timeout: 90000,
   headers: { 'Content-Type': 'application/json' },
 })
 
