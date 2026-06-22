@@ -1,3 +1,4 @@
+
 import axios from 'axios'
 
 const api = axios.create({
@@ -15,6 +16,7 @@ api.interceptors.response.use(
       err.response?.data?.error ||
       err.message ||
       'An unexpected error occurred'
+
     return Promise.reject(new Error(msg))
   }
 )
@@ -48,25 +50,42 @@ export const deleteIncident = async (id) => {
   return data
 }
 
+// ─── AI Analysis ─────────────────────────────────────────────────────────────
 
+export const generateAIAnalysis = async (payload) => {
+  const { data } = await api.post('/ai/analyze', payload)
+  return data.data
+}
 
 // ─── Logs ────────────────────────────────────────────────────────────────────
 
-export const uploadLog = async ({ file, pipelineName, branchName }, onProgress) => {
+export const uploadLog = async (
+  { file, pipelineName, branchName },
+  onProgress
+) => {
   const form = new FormData()
+
   form.append('file', file)
+
   if (pipelineName) form.append('pipelineName', pipelineName)
-  if (branchName)   form.append('branchName',   branchName)
+  if (branchName) form.append('branchName', branchName)
 
   const { data } = await api.post('/logs/upload', form, {
-    headers: { 'Content-Type': 'multipart/form-data' },
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+
     onUploadProgress: (e) => {
       if (onProgress && e.total) {
-        onProgress(Math.round((e.loaded / e.total) * 100))
+        onProgress(
+          Math.round((e.loaded / e.total) * 100)
+        )
       }
     },
   })
+
   return data.data
 }
 
 export default api
+
