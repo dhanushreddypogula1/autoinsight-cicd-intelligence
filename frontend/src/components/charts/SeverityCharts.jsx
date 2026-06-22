@@ -22,11 +22,14 @@ const CustomTooltip = ({ active, payload }) => {
 }
 
 export function SeverityDonut({ data }) {
-  const chartData = Object.entries(data || {}).map(([name, value]) => ({
-    name: SEVERITY_CONFIG[name]?.label || name,
-    value: Number(value),
-    color: SEVERITY_COLORS[name] || '#6B7280',
-  })).filter(d => d.value > 0)
+  const chartData = Object.entries(data || {}).map(([name, value]) => {
+    const severity = String(name).toUpperCase()
+    return {
+      name: SEVERITY_CONFIG[severity]?.label || name,
+      value: Number(value),
+      color: SEVERITY_COLORS[severity] || '#6B7280',
+    }
+  }).filter(d => d.value > 0)
 
   if (!chartData.length) {
     return (
