@@ -32,37 +32,45 @@ public class GeminiService {
         try {
 
             String prompt = """
-                You are a senior DevOps engineer.
+                    You are a senior DevOps engineer and Site Reliability Engineer.
 
-                Analyze this CI/CD failure.
+                    Analyze this CI/CD failure.
 
-                Title:
-                %s
+                    Title:
+                    %s
 
-                Summary:
-                %s
+                    Summary:
+                    %s
 
-                Logs:
-                %s
+                    Logs:
+                    %s
 
-                Return ONLY valid JSON.
+                    Return ONLY valid JSON.
 
-                {
-                  "rootCause": "",
-                  "businessImpact": "",
-                  "recommendedFix": "",
-                  "confidence": 0
-                }
+                    {
+                      "rootCause": "",
+                      "businessImpact": "",
+                      "recommendedFix": "",
+                      "confidence": 0,
+                      "riskLevel": "",
+                      "estimatedResolutionTime": "",
+                      "affectedComponent": "",
+                      "actionPlan": ""
+                    }
 
-                Example:
+                    Example:
 
-                {
-                  "rootCause":"Dependency version conflict",
-                  "businessImpact":"Deployment blocked",
-                  "recommendedFix":"Update dependency version and rebuild pipeline",
-                  "confidence":92
-                }
-                """.formatted(
+                    {
+                      "rootCause":"Dependency version conflict",
+                      "businessImpact":"Deployment blocked",
+                      "recommendedFix":"Update dependency version and rebuild pipeline",
+                      "confidence":92,
+                      "riskLevel":"HIGH",
+                      "estimatedResolutionTime":"15-30 minutes",
+                      "affectedComponent":"Maven Dependency Resolver",
+                      "actionPlan":"1. Check dependency versions\\n2. Rebuild project\\n3. Re-run pipeline"
+                    }
+                    """.formatted(
                     request.getTitle(),
                     request.getSummary(),
                     request.getRawLogs()
@@ -108,8 +116,8 @@ public class GeminiService {
                             .asText();
 
             text = text.replace("```json", "")
-                       .replace("```", "")
-                       .trim();
+                    .replace("```", "")
+                    .trim();
 
             JsonNode aiJson = objectMapper.readTree(text);
 
@@ -117,23 +125,31 @@ public class GeminiService {
                     aiJson.path("rootCause").asText(),
                     aiJson.path("businessImpact").asText(),
                     aiJson.path("recommendedFix").asText(),
-                    aiJson.path("confidence").asInt()
+                    aiJson.path("confidence").asInt(),
+                    aiJson.path("riskLevel").asText(),
+                    aiJson.path("estimatedResolutionTime").asText(),
+                    aiJson.path("affectedComponent").asText(),
+                    aiJson.path("actionPlan").asText()
             );
 
-        } 
-        catch (Exception e) {
+        } catch (Exception e) {
 
-             e.printStackTrace();
+            e.printStackTrace();
 
-             return new AIAnalysisResponse(
-                request.getTitle() + " likely caused by dependency, configuration, or infrastructure issues.",
-                "CI/CD pipeline execution failed, preventing deployment and delaying software delivery.",
-                "Review pipeline logs, validate dependencies and configuration, then rebuild and rerun the pipeline.",
-                75
+            return new AIAnalysisResponse(
+                    request.getTitle() + " likely caused by dependency, configuration, or infrastructure issues.",
+                    "CI/CD pipeline execution failed, preventing deployment and delaying software delivery.",
+                    "Review pipeline logs, validate dependencies and configuration, then rebuild and rerun the pipeline.",
+                    75,
+                    "HIGH",
+                    "15-30 minutes",
+                    "Maven Dependency Resolver",
+                    "1. Validate dependency versions\n" +
+                    "2. Check repository availability\n" +
+                    "3. Clear build cache\n" +
+                    "4. Rebuild pipeline"
             );
         }
-
-
     }
 }
 
