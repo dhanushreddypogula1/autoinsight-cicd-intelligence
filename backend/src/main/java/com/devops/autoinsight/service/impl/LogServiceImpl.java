@@ -1,4 +1,3 @@
-```java
 package com.devops.autoinsight.service.impl;
 
 import com.devops.autoinsight.dto.request.AIAnalysisRequest;
@@ -233,4 +232,4 @@ public class LogServiceImpl implements LogService {
         return originalFileName;
     }
 }
-```
+
