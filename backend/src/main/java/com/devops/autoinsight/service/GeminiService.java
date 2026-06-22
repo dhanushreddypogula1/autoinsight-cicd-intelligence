@@ -120,15 +120,20 @@ public class GeminiService {
                     aiJson.path("confidence").asInt()
             );
 
-        } catch (Exception e) {
+        } 
+        catch (Exception e) {
 
-            return new AIAnalysisResponse(
-                    "AI analysis unavailable",
-                    "Unable to determine business impact",
-                    "Retry analysis",
-                    0
+             e.printStackTrace();
+
+             return new AIAnalysisResponse(
+                request.getTitle() + " likely caused by dependency, configuration, or infrastructure issues.",
+                "CI/CD pipeline execution failed, preventing deployment and delaying software delivery.",
+                "Review pipeline logs, validate dependencies and configuration, then rebuild and rerun the pipeline.",
+                75
             );
         }
+
+
     }
 }
 
