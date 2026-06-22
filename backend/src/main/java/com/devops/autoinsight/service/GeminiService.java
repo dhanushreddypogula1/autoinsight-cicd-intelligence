@@ -1,4 +1,4 @@
-````java
+
 package com.devops.autoinsight.service;
 
 import com.devops.autoinsight.dto.request.AIAnalysisRequest;
@@ -131,4 +131,4 @@ public class GeminiService {
         }
     }
 }
-````
+
